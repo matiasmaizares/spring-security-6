@@ -38,9 +38,11 @@ public class SecurityConfig {
         requestHandler.setCsrfRequestAttributeName("_csrf");
 
         http.authorizeHttpRequests(auth->
-                auth
-                        .requestMatchers("/loans","/accounts","/balance","/cards").authenticated()
-                        .anyRequest().permitAll())
+                //auth.requestMatchers("/loans","/accounts","/balance","/cards").authenticated()
+                        auth
+                                .requestMatchers("/loans","/balance").hasRole("USER")
+                                .requestMatchers("/accounts","/cards").hasRole("ADMIN")
+                                .anyRequest().permitAll())
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults());
         http.cors(AbstractHttpConfigurer::disable);

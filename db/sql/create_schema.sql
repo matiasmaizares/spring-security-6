@@ -33,11 +33,15 @@ insert into authorities (username, authority) VALUES
 create table customers(
                           id bigserial primary key,
                           email varchar(50) not null,
-                          pwd varchar(500) not null,
-                          rol varchar(20) not null);
+                          pwd varchar(500) not null
+);
+
+create table roles(
+                        id bigserial primary key,
+                        role_name varchar(50),
+                        description varchar(100),
+                        id_customer bigint,
+                        constraint fk_customer foreign key (id_customer) references customers(id)
+);
 
 
------------------data------------------
-insert into customers (email, pwd, rol) VALUES
-                                            ('test@correo.com', '12345', 'admin'),
-                                            ('test2@correo.com', '12345', 'user');
